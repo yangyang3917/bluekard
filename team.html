@@ -44,6 +44,7 @@
             transform: translateX(100%);
             opacity: 0;
             transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+            overflow: hidden; /* 防止内容溢出 */
         }
 
         .content.animate-in {
@@ -53,29 +54,167 @@
 
         .image-link-container {
             display: flex;
+            flex-direction: row; /* 默认水平排列 */
             align-items: center;
-            justify-content: space-around;
-            height: 200px;
+            justify-content: center;
             width: 100%;
+            padding: 20px;
+            flex-wrap: wrap; /* 允许元素换行 */
         }
 
         .content-image {
             height: 80%;
+            width: auto;
+            max-width: 250px; /* 限制图片的最大宽度 */
             border-radius: 10px;
             filter: drop-shadow(0 0 10px rgba(30, 144, 255, 0.8));
             object-fit: contain;
+            margin-right: 20px; /* 图片和文字之间的间距 */
+            margin-bottom: 15px; /* 图片底部间距 */
+        }
+
+        .text-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left; /* 文字左对齐 */
+            width: 100%;
+            max-width: calc(100% - 270px); /* 为图片留出空间 */
         }
 
         .content-link {
             color: #1e90ff;
             text-decoration: none;
+            font-size: 36px;
             font-weight: bold;
-            font-size: 24px;
-            text-align: center;
+            margin-bottom: 10px;
+            word-wrap: break-word; /* 允许长单词换行 */
         }
 
         .content-link:hover {
             text-decoration: underline;
+        }
+
+        .bold-text {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+            word-wrap: break-word; /* 允许长单词换行 */
+        }
+
+        .normal-text {
+            font-size: 16px;
+            font-weight: normal;
+            color: #555;
+            word-wrap: break-word; /* 允许长单词换行 */
+        }
+
+        /* 手机适配 */
+        @media (max-width: 768px) {
+            body {
+                padding-bottom: 50px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+
+            .image-link-container {
+                flex-direction: column;
+                padding: 15px;
+            }
+
+            .content-image {
+                height: 60%;
+                max-width: 200px;
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+
+            .text-content {
+                max-width: 100%;
+                text-align: center;
+            }
+
+            .content-link {
+                font-size: 28px;
+            }
+
+            .bold-text {
+                font-size: 22px;
+            }
+
+            .normal-text {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .image-link-container {
+                flex-direction: column;
+                padding: 10px;
+                text-align: center;
+            }
+
+            .content-image {
+                height: 40%;
+                max-width: 150px;
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+
+            .text-content {
+                text-align: center;
+                max-width: 100%;
+            }
+
+            .content-link {
+                font-size: 24px;
+            }
+
+            .bold-text {
+                font-size: 20px;
+            }
+
+            .normal-text {
+                font-size: 14px;
+            }
+        }
+
+        /* 超窄屏幕适配 */
+        @media (max-width: 320px) {
+            .content-link {
+                font-size: 20px;
+            }
+
+            .bold-text {
+                font-size: 18px;
+            }
+
+            .normal-text {
+                font-size: 12px;
+            }
+
+            .content-image {
+                max-width: 120px;
+            }
         }
 
         /* 底部导航栏 */
@@ -98,220 +237,28 @@
             color: #1e90ff;
             text-align: center;
         }
-
-        /* 手机适配 */
-        @media (max-width: 768px) {
-            body {
-                padding-bottom: 50px;
-            }
-
-            .container {
-                padding: 15px;
-            }
-
-            h1 {
-                font-size: 24px;
-                margin-bottom: 20px;
-            }
-
-            .image-link-container {
-                height: 150px;
-            }
-
-            .content-image {
-                height: 70%;
-            }
-
-            .content-link {
-                font-size: 20px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 10px;
-            }
-
-            h1 {
-                font-size: 20px;
-            }
-
-            .image-link-container {
-                height: 120px;
-            }
-
-            .content-link {
-                font-size: 18px;
-            }
-        }
     </style>
 </head>
 <body>
 
-    
+    <div class="container">
+        <div class="content">
+            <div class="image-link-container">
+                <img src="pwp.png" alt="marisa" class="content-image">
+                <div class="text-content">
+                    <!-- blueeggs - 粗体很大 -->
+                    <a href="https://space.bilibili.com/596035099" target="_blank" class="content-link">blueeggs</a>
 
-    
-<style>
-/* 统一的页面载入动画 */
-@keyframes pageSlideIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+                    <!-- 如果没有你想要的素材可以来私信我 - 比上面的小点，粗体 -->
+                    <p class="bold-text">如果没有你想要的素材可以来私信我</p>
 
-/* 应用到页面容器 */
-.container {
-    animation: pageSlideIn 0.4s ease-out forwards;
-}
-
-/* 导航栏动画 */
-.bottom-nav {
-    animation: pageSlideIn 0.4s ease-out 0.1s forwards;
-    animation-fill-mode: both;
-}
-
-/* 初始状态设置 */
-.container {
-    opacity: 0;
-}
-
-/* 为内容区域设置初始状态，避免与右侧滑入冲突 */
-.content {
-    opacity: 0;
-}
-
-/* 延迟显示内容，避免闪烁 */
-@media (prefers-reduced-motion: reduce) {
-    .container,
-    .bottom-nav,
-    .content {
-        animation: none;
-        opacity: 1;
-    }
-}
-</style>
-
-<script>
-// 修改JavaScript，确保两个动画顺序执行
-document.addEventListener('DOMContentLoaded', function () {
-    const container = document.querySelector('.container');
-    const content = document.querySelector('.content');
-    
-    // 先执行页面载入动画
-    container.style.animation = 'pageSlideIn 0.4s ease-out forwards';
-    
-    // 延迟执行右侧滑入动画
-    setTimeout(function () {
-        content.classList.add('animate-in');
-    }, 600); // 等待页面载入动画完成后执行
-});
-</script>
-
-<div class="container">
-    <div class="content">
-        <div class="image-link-container">
-            <img src="pwp.png" alt="marisa" class="content-image">
-            <div class="text-content">
-                <!-- blueeggs - 粗体很大 -->
-                <a href="https://space.bilibili.com/596035099" target="_blank" class="content-link" style="font-size: 36px; font-weight: bold; margin-bottom: 10px; display: block;">blueeggs</a>
-                
-                <!-- 如果没有你想要的素材可以来私信我 - 比上面的小点，粗体 -->
-                <p class="bold-text" style="font-size: 24px; font-weight: bold; margin: 10px 0 5px 0;">如果没有你想要的素材可以来私信我</p>
-                
-                <!-- ps：我能找到的情况下 - 没粗体，比上面两个都小 -->
-                <p class="normal-text" style="font-size: 16px; font-weight: normal; margin-top: 0; color: #555;">ps：我能找到的情况下</p>
-                <p class="normal-text" style="font-size: 16px; font-weight: normal; margin-top: 0; color: #555;">最后提交时间：</p>
+                    <!-- ps：我能找到的情况下 - 没粗体，比上面两个都小 -->
+                    <p class="normal-text">ps：我能找到的情况下</p>
+                    <p class="normal-text">最后提交时间：</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-<style>
-    /* 使内容水平排列，图片在左，文字在右 */
-    .image-link-container {
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        height: 200px;
-        width: 100%;
-        padding: 20px;
-    }
-
-    /* 图片样式 */
-    .content-image {
-        height: 80%;
-        border-radius: 10px;
-        filter: drop-shadow(0 0 10px rgba(30, 144, 255, 0.8));
-        object-fit: contain;
-        margin-right: 20px; /* 图片和文字之间的间距 */
-    }
-
-    /* 文字内容容器 */
-    .text-content {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: left; /* 文字左对齐 */
-    }
-
-    /* 内容链接样式 */
-    .content-link {
-        color: #1e90ff;
-        text-decoration: none;
-    }
-
-    .content-link:hover {
-        text-decoration: underline;
-    }
-    
-    /* 文本段落样式 */
-    .bold-text {
-        margin: 10px 0;
-        color: #333;
-    }
-    
-    .normal-text {
-        margin: 5px 0 0 0;
-        color: #666;
-    }
-    
-    /* 手机适配 */
-    @media (max-width: 768px) {
-        .image-link-container {
-            height: 150px;
-        }
-        
-        .content-image {
-            height: 70%;
-        }
-    }
-    
-    @media (max-width: 480px) {
-        .image-link-container {
-            height: 120px;
-            flex-direction: column;
-            text-align: center;
-        }
-        
-        .content-image {
-            height: 40%;
-            margin-right: 0;
-            margin-bottom: 10px;
-        }
-        
-        .text-content {
-            text-align: center;
-        }
-    }
-</style>
-
-
-
 
     <!-- 底部导航栏 -->
     <div class="bottom-nav">
@@ -333,5 +280,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 300);
         });
     </script>
+
 </body>
 </html>
