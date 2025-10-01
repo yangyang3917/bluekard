@@ -2,19 +2,8 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/png" sizes="16x16" href="icon/16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="icon/32x32.png">
-    <link rel="icon" type="image/png" sizes="48x48" href="icon/48x48.png">
-    <link rel="icon" type="image/png" sizes="64x64" href="icon/64x64.png">
-    <link rel="icon" type="image/png" sizes="128x128" href="icon/128x128.png">
-    <link rel="icon" type="image/png" sizes="256x256" href="icon/256x256.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="icon/512x512.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="icon/180x180.png">
-    <link rel="manifest" href="site.webmanifest">
-    <meta name="theme-color" content="#ffffff">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <title>开车动画</title>
+    <title>加载动画</title>
     <style>
         * {
             margin: 0;
@@ -24,336 +13,234 @@
         
         body {
             font-family: Arial, sans-serif;
-            padding: 10px;
             background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
         }
         
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
+            flex-grow: 1;
+            padding: 10px;
+            overflow: auto;
         }
         
         h1 {
             text-align: center;
             margin-bottom: 20px;
             color: #333;
-            font-size: 24px;
         }
         
-        .selector-group {
-            margin-bottom: 20px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #555;
-        }
-        
-        select, input {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            background-color: white;
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-        
-        .video-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 10px;
-            margin-top: 10px;
+        .video-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
         }
         
         .video-item {
-            position: relative;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            background-color: white;
-            aspect-ratio: 16/9;
+            width: 100%;
+            max-width: 800px;
         }
         
-.video-item video {
-    width: 100%;
-    height: auto;
-    object-fit: contain; 
-}
-
-        
-        .video-controls {
-            position: absolute;
-            bottom: 25px;
-            left: 0;
-            right: 0;
-            background-color: rgba(0,0,0,0.7);
-            padding: 5px;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
+        video {
+            width: 100%;
+            height: auto;
         }
         
-        .video-controls button {
-            background: white;
-            border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .video-item .video-name {
-            padding: 5px;
-            font-size: 11px;
+        .video-title {
             text-align: center;
-            background-color: rgba(0,0,0,0.8);
-            color: white;
-            position: absolute;
+            margin-top: 5px;
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* 底部导航栏 */
+        .bottom-nav {
+            position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            z-index: 1000;
+            font-size: 14px;
         }
-        
-        .no-videos {
-            text-align: center;
-            padding: 40px 20px;
-            color: #999;
-            font-style: italic;
-            grid-column: 1 / -1;
-        }
-        
-        .loading {
-            text-align: center;
-            padding: 40px 20px;
-            color: #666;
-            grid-column: 1 / -1;
-        }
-        
-        .nav-link {
-            display: block;
-            text-align: center;
-            margin: 15px 0;
-            color: #1e90ff;
+
+        .bottom-nav a {
             text-decoration: none;
-            font-weight: bold;
-        }
-        
-        .nav-link:hover {
-            text-decoration: underline;
+            color: #1e90ff;
+            text-align: center;
         }
         
         @media (max-width: 768px) {
             .container {
-                padding: 0 5px;
-            }
-            
-            .video-container {
-                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-                gap: 8px;
+                padding: 5px;
             }
             
             h1 {
                 font-size: 20px;
             }
         }
-        
-@media (max-width: 480px) {
-    .video-container {
-        grid-template-columns: 1fr; 
-        gap: 10px;
-    }
-    .video-item {
-        aspect-ratio: 16/9;
-    }
-    .video-item .video-name {
-        position: relative; /* 不再绝对定位 */
-        font-size: 12px;
-        padding: 5px 0;
-        background: none;
-        color: #333;
-    }
-    .video-controls {
-        position: relative; /* 不再绝对定位 */
-        bottom: auto;
-        background: none;
-        justify-content: flex-start;
-        padding: 5px 0;
-    }
-    .video-controls button {
-        width: 30px;
-        height: 30px;
-    }
-}
-
-        
-        @media (max-width: 320px) {
-            .video-item .video-name {
-                font-size: 9px;
-                padding: 2px;
-            }
-        }
     </style>
 </head>
 <body>
-    <a href="https://space.bilibili.com/596035099" target="_blank" style="display: block; text-align: center; margin-top: 20px; color: #1e90ff; text-decoration: none;">blueeggs</a>
+
+    <style>
+/* 统一的页面载入动画 */
+@keyframes pageSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 应用到所有页面容器 */
+.container {
+    animation: pageSlideIn 0.4s ease-out forwards;
+}
+
+/* 为已有动画的页面调整动画 */
+.content {
+    animation: pageSlideIn 0.4s ease-out forwards;
+}
+
+/* 视频列表动画 */
+.video-list {
+    animation: pageSlideIn 0.4s ease-out forwards;
+}
+
+/* 音效容器动画 */
+#sound-display {
+    animation: pageSlideIn 0.4s ease-out forwards;
+}
+
+/* 图片容器动画 */
+#image-display {
+    animation: pageSlideIn 0.4s ease-out forwards;
+}
+
+/* 导航栏动画 */
+.bottom-nav {
+    animation: pageSlideIn 0.4s ease-out 0.1s forwards;
+    animation-fill-mode: both;
+}
+
+/* 初始状态设置 */
+.container,
+.content,
+.video-list,
+#sound-display,
+#image-display,
+.bottom-nav {
+    opacity: 0;
+}
+
+/* 延迟显示内容，避免闪烁 */
+@media (prefers-reduced-motion: reduce) {
+    .container,
+    .content,
+    .video-list,
+    #sound-display,
+    #image-display,
+    .bottom-nav {
+        animation: none;
+        opacity: 1;
+    }
+}
+</style>
     <div class="container">
-        <h1>开车动画</h1>
+        <h1>加载动画</h1>
         
-        <!-- 添加跳转到图片页面的链接 -->
-        <a href="index.html" class="nav-link">返回主界面</a>
-        
-        <div id="video-display">
-            <div class="no-videos">加载中...</div>
+        <div class="video-list">
+            <div class="video-item">
+                <video controls>
+                    <source src="video/冬季战争2021_.mp4" type="video/mp4">
+                    您的浏览器不支持视频播放。
+                </video>
+                <div class="video-title">冬季战争2021</div>
+            </div>
+            
+            <div class="video-item">
+                <video controls>
+                    <source src="video/冬季战争2021_noLights.mp4" type="video/mp4">
+                    您的浏览器不支持视频播放。
+                </video>
+                <div class="video-title">冬季战争2021_noLights</div>
+            </div>
+            
+            <div class="video-item">
+                <video controls>
+                    <source src="video/海战.mp4" type="video/mp4">
+                    您的浏览器不支持视频播放。
+                </video>
+                <div class="video-title">海战</div>
+            </div>
+            
+            <div class="video-item">
+                <video controls>
+                    <source src="video/军团背景.mp4" type="video/mp4">
+                    您的浏览器不支持视频播放。
+                </video>
+                <div class="video-title">军团背景</div>
+            </div>
+            
+            <div class="video-item">
+                <video controls>
+                    <source src="video/突破.mp4" type="video/mp4">
+                    您的浏览器不支持视频播放。
+                </video>
+                <div class="video-title">突破</div>
+            </div>
+            
+            <div class="video-item">
+                <video controls>
+                    <source src="video/突破_ios.mp4" type="video/mp4">
+                    您的浏览器不支持视频播放。
+                </video>
+                <div class="video-title">突破_ios</div>
+            </div>
+            
+            <div class="video-item">
+                <video controls>
+                    <source src="video/血与铁2024.mp4" type="video/mp4">
+                    您的浏览器不支持视频播放。
+                </video>
+                <div class="video-title">血与铁2024</div>
+            </div>
+            
+            <div class="video-item">
+                <video controls>
+                    <source src="video/战区2022.mp4" type="video/mp4">
+                    您的浏览器不支持视频播放。
+                </video>
+                <div class="video-title">战区2022</div>
+            </div>
+            
+            <div class="video-item">
+                <video controls>
+                    <source src="video/战区2022_2.mp4" type="video/mp4">
+                    您的浏览器不支持视频播放。
+                </video>
+                <div class="video-title">战区2022_2</div>
+            </div>
         </div>
     </div>
 
-    <script>
-        class VideoTouchHandler {
-            constructor(element) {
-                this.element = element;
-                this.touchStartTime = 0;
-                this.touchTimer = null;
-                this.touchHandled = false;
-                
-                this.init();
-            }
-            
-            init() {
-                // 添加触摸事件监听器
-                this.element.addEventListener('touchstart', (e) => this.handleTouchStart(e), { passive: false });
-                this.element.addEventListener('touchend', (e) => this.handleTouchEnd(e), { passive: false });
-                this.element.addEventListener('touchmove', (e) => this.handleTouchMove(e), { passive: false });
-                this.element.addEventListener('contextmenu', (e) => this.handleContextMenu(e));
-            }
-            
-            handleTouchStart(event) {
-                this.touchStartTime = Date.now();
-                this.touchHandled = false;
-                clearTimeout(this.touchTimer);
-                
-                // 长按800ms后触发下载
-                this.touchTimer = setTimeout(() => {
-                    if (!this.touchHandled) {
-                        this.downloadVideo();
-                        this.touchHandled = true;
-                    }
-                }, 800);
-            }
-            
-            handleTouchMove(event) {
-                clearTimeout(this.touchTimer);
-                this.touchHandled = true;
-            }
-            
-            handleTouchEnd(event) {
-                clearTimeout(this.touchTimer);
-                this.touchHandled = true;
-            }
-            
-            handleContextMenu(event) {
-                event.preventDefault();
-                this.downloadVideo();
-            }
-            
-            downloadVideo() {
-                const source = this.element.querySelector('source');
-                const url = source ? source.src : this.element.src;
-                const filename = this.element.dataset.filename || 'video.mp4';
-                
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = filename;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }
-        }
-        
-        function togglePlay(video) {
-            if (video.paused) {
-                video.play();
-            } else {
-                video.pause();
-            }
-        }
-        
-        function initVideoControls() {
-            document.querySelectorAll('.video-item').forEach(item => {
-                const video = item.querySelector('video');
-                const playBtn = item.querySelector('.play-btn');
-                
-                if (video && playBtn) {
-                    new VideoTouchHandler(video);
-                    
-                    playBtn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        togglePlay(video);
-                    });
-                    
-                    // 点击视频任意位置也可以播放/暂停
-                    item.addEventListener('click', () => togglePlay(video));
-                }
-            });
-        }
-        
-        function renderVideos(videos) {
-            let html = '<div class="video-container">';
-            videos.forEach(video => {
-                const videoPath = typeof video === 'object' ? video.path : video;
-                const fileName = videoPath.split('/').pop();
-                const displayName = fileName.replace('.mp4', '');
-                // 正确处理包含中文的路径
-                const encodedVideoPath = videoPath.split('/').map(part => encodeURIComponent(part)).join('/');
-                
-                html += `
-                    <div class="video-item">
-                        <video data-filename="${fileName}">
-                            <source src="${encodedVideoPath}" type="video/mp4">
-                            您的浏览器不支持视频播放。
-                        </video>
-                        <div class="video-controls">
-                            <button class="play-btn">▶</button>
-                        </div>
-                        <div class="video-name">${displayName}</div>
-                    </div>
-                `;
-            });
-            html += '</div>';
-            
-            document.getElementById('video-display').innerHTML = html;
-            
-            // 确保DOM更新后再初始化控件
-            setTimeout(initVideoControls, 100);
-        }
-        
-        function loadVideos() {
-            const videos = [
-                { path: 'video/冬季战争2021_.mp4' },
-                { path: 'video/冬季战争2021_noLights.mp4' },
-                { path: 'video/海战.mp4' },
-                { path: 'video/军团背景.mp4' },
-                { path: 'video/突破.mp4' },
-                { path: 'video/突破_ios.mp4' },
-                { path: 'video/血与铁2024.mp4' },
-                { path: 'video/战区2022.mp4' },
-                { path: 'video/战区2022_2.mp4' },
-            ];
-            
-            renderVideos(videos);
-        }
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            loadVideos();
-        });
-    </script>
+    <!-- 底部导航栏 -->
+    <div class="bottom-nav">
+        <a href="index.html">卡图</a>
+        <a href="image2.html">其他素材</a>
+        <a href="suck.html">音效库</a>
+        <a href="zaza.html">加载动画</a>
+        <a href="team.html">关于</a>
+    </div>
 </body>
 </html>

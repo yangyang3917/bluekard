@@ -137,21 +137,102 @@
     </style>
 </head>
 <body>
-    <a href="https://space.bilibili.com/596035099" target="_blank" style="display: block; text-align: center; margin-top: 20px; color: #1e90ff; text-decoration: none;">blueeggs</a>
     <div class="container">
         <h1>KARDS音效</h1>
-        
-        <!-- 添加返回素材库的链接 -->
-        <a href="index.html" class="nav-link">返回素材库</a>
+
         
         <div id="sound-display">
             <div class="loading">加载中...</div>
         </div>
     </div>
+    <style>
+/* 在现有样式基础上添加 */
+.container {
+    padding-bottom: 60px; /* 为底部导航栏留出空间 */
+}
+</style>
+
+<!-- 在 </body> 标签前添加 -->
+<div style="position: fixed; bottom: 0; left: 0; right: 0; background-color: #fff; border-top: 1px solid #ddd; display: flex; justify-content: space-around; padding: 10px 0; z-index: 1000; font-size: 14px;">
+    <a href="index.html" style="text-decoration: none; color: #1e90ff; text-align: center;">卡图</a>
+    <a href="image2.html" style="text-decoration: none; color: #1e90ff; text-align: center;">其他素材</a>
+    <a href="suck.html" style="text-decoration: none; color: #1e90ff; text-align: center;">音效库</a>
+    <a href="zaza.html" style="text-decoration: none; color: #1e90ff; text-align: center;">加载动画</a>
+    <a href="team.html" style="text-decoration: none; color: #1e90ff; text-align: center;">关于</a>
+</div>
 
     <audio id="audio-player"></audio>
 
     <!-- 引入外部JavaScript文件 -->
     <script src="js/sound.js"></script>
+
+<style>
+/* 统一的页面载入动画 */
+@keyframes pageSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 应用到所有页面容器 */
+.container {
+    animation: pageSlideIn 0.4s ease-out forwards;
+}
+
+/* 为已有动画的页面调整动画 */
+.content {
+    animation: pageSlideIn 0.4s ease-out forwards;
+}
+
+/* 视频列表动画 */
+.video-list {
+    animation: pageSlideIn 0.4s ease-out forwards;
+}
+
+/* 音效容器动画 */
+#sound-display {
+    animation: pageSlideIn 0.4s ease-out forwards;
+}
+
+/* 图片容器动画 */
+#image-display {
+    animation: pageSlideIn 0.4s ease-out forwards;
+}
+
+/* 导航栏动画 */
+.bottom-nav {
+    animation: pageSlideIn 0.4s ease-out 0.1s forwards;
+    animation-fill-mode: both;
+}
+
+/* 初始状态设置 */
+.container,
+.content,
+.video-list,
+#sound-display,
+#image-display,
+.bottom-nav {
+    opacity: 0;
+}
+
+/* 延迟显示内容，避免闪烁 */
+@media (prefers-reduced-motion: reduce) {
+    .container,
+    .content,
+    .video-list,
+    #sound-display,
+    #image-display,
+    .bottom-nav {
+        animation: none;
+        opacity: 1;
+    }
+}
+</style>
+
 </body>
 </html>
