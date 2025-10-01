@@ -11,20 +11,16 @@
             box-sizing: border-box;
         }
 
-        /* 使用 flex 布局 */
-        body {
+                body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
             display: flex;
             flex-direction: column;
-            height: 100vh; /* 确保页面高度占满屏幕 */
-        }
+            height: 100vh;         }
 
         .container {
-            flex-grow: 1; /* 确保容器占用剩余空间 */
-            padding: 20px;
-            overflow: auto; /* 防止内容区域溢出 */
-        }
+            flex-grow: 1;             padding: 20px;
+            overflow: auto;         }
 
         h1 {
             text-align: center;
@@ -33,8 +29,7 @@
             font-size: 28px;
         }
 
-        /* 主内容区域 - 添加右侧滑入动画 */
-        .content {
+                .content {
             background: white;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -44,8 +39,7 @@
             transform: translateX(100%);
             opacity: 0;
             transition: transform 0.8s ease-out, opacity 0.8s ease-out;
-            overflow: hidden; /* 防止内容溢出 */
-        }
+            overflow: hidden;         }
 
         .content.animate-in {
             transform: translateX(0);
@@ -54,33 +48,26 @@
 
         .image-link-container {
             display: flex;
-            flex-direction: row; /* 默认水平排列 */
-            align-items: center;
+            flex-direction: row;             align-items: center;
             justify-content: center;
             width: 100%;
             padding: 20px;
-            flex-wrap: wrap; /* 允许元素换行 */
-        }
+            flex-wrap: wrap;         }
 
         .content-image {
             height: 80%;
             width: auto;
-            max-width: 250px; /* 限制图片的最大宽度 */
-            border-radius: 10px;
+            max-width: 250px;             border-radius: 10px;
             filter: drop-shadow(0 0 10px rgba(30, 144, 255, 0.8));
             object-fit: contain;
-            margin-right: 20px; /* 图片和文字之间的间距 */
-            margin-bottom: 15px; /* 图片底部间距 */
-        }
+            margin-right: 20px;             margin-bottom: 15px;         }
 
         .text-content {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            text-align: left; /* 文字左对齐 */
-            width: 100%;
-            max-width: calc(100% - 270px); /* 为图片留出空间 */
-        }
+            text-align: left;             width: 100%;
+            max-width: calc(100% - 270px);         }
 
         .content-link {
             color: #1e90ff;
@@ -88,8 +75,7 @@
             font-size: 36px;
             font-weight: bold;
             margin-bottom: 10px;
-            word-wrap: break-word; /* 允许长单词换行 */
-        }
+            word-wrap: break-word;         }
 
         .content-link:hover {
             text-decoration: underline;
@@ -99,18 +85,15 @@
             font-size: 24px;
             font-weight: bold;
             margin: 10px 0;
-            word-wrap: break-word; /* 允许长单词换行 */
-        }
+            word-wrap: break-word;         }
 
         .normal-text {
             font-size: 16px;
             font-weight: normal;
             color: #555;
-            word-wrap: break-word; /* 允许长单词换行 */
-        }
+            word-wrap: break-word;         }
 
-        /* 手机适配 */
-        @media (max-width: 768px) {
+                @media (max-width: 768px) {
             body {
                 padding-bottom: 50px;
             }
@@ -198,8 +181,7 @@
             }
         }
 
-        /* 超窄屏幕适配 */
-        @media (max-width: 320px) {
+                @media (max-width: 320px) {
             .content-link {
                 font-size: 20px;
             }
@@ -217,8 +199,7 @@
             }
         }
 
-        /* 底部导航栏 */
-        .bottom-nav {
+                .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
@@ -254,7 +235,7 @@
 
                     <!-- ps：我能找到的情况下 - 没粗体，比上面两个都小 -->
                     <p class="normal-text">ps：我能找到的情况下</p>
-                    <p class="normal-text">最后提交时间：</p>
+                    <p class="normal-text">最后提交时间：2025:10:02 02:01</p>
                 </div>
             </div>
         </div>
@@ -270,11 +251,11 @@
     </div>
 
     <script>
-        // 页面加载后执行右侧滑入动画
+        
         document.addEventListener('DOMContentLoaded', function () {
             const content = document.querySelector('.content');
 
-            // 延迟一点时间再开始动画，让用户注意到动画效果
+            
             setTimeout(function () {
                 content.classList.add('animate-in');
             }, 300);
